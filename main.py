@@ -54,7 +54,7 @@ def main():
         qwer = Todo(title=title,des=descri,done=done,date=date)
         db.session.add(qwer)
         db.session.commit()
-        return render_template('index.html',all=todo,form=ty)
+        return redirect(url_for('main'))
 
     return render_template('index.html',all=todo, form=ty)
 
@@ -88,7 +88,7 @@ def list(id):
         db.session.add(tyo)
         db.session.commit()
         list = Lists.query.filter_by(title_id=id).all()
-        return render_template('zoom.html', rim=qw, forms=asp, loot=list)
+        return redirect(url_for('list'), id=list.title_id)
     return render_template('zoom.html', rim=qw, forms=asp, loot=list)
 
 @app.route("/edit_li/<int:id>", methods=['POST', 'GET'])
