@@ -47,8 +47,6 @@ def main():
     todo = Todo.query.all()
     ty = CreateForm()
     if ty.validate_on_submit():
-        todo = Todo.query.all()
-        ty = CreateForm()
         title = ty.title.data
         descri = ty.des.data
         date = ty.duedate.data
@@ -82,6 +80,7 @@ def list(id):
     list = Lists.query.filter_by(title_id=id).all()
     asp = ListForm()
     if asp.validate_on_submit():
+        asp = ListForm()
         ui = asp.lists.data
         don = 1
         print(ui)
