@@ -1,0 +1,53 @@
+{% extends 'bootstrap/base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block content %}
+ <div style="background-color:#6ddccf;">
+    <div style="text-align:left;padding-left:5%;">
+         <p style="font-size:4rem;color:#ffff;font-family: 'Syne Mono', monospace;">{{rim.title}}</p>
+    </div>
+
+  <div class="container-fluid" style="min-height:70vh;padding-bottom:40px;">
+    <div class="row" style="text-align:left;padding-top:40px;line-height:3;padding-left:5%;">
+        <div class="col-lg-5 sm-12" style="width:300px;height:300px;border:10px solid #eb596e;border-radius:12px;padding-top:30px;line-height:5;">
+            <h3>Description: {{rim.des}}</h3>
+            {% if rim.done == 0 %}
+            <h3>Completed: Yes</h3>
+            <h3>Due Date: {{rim.date}}</h3>
+            {% endif %}
+             {% if rim.done == 1 %}
+             <h3>Completed: No</h3>
+             <h3>Due Date: {{rim.date}}</h3>
+              {% endif %}
+        </div>
+        <div class="col-lg-1 sm-12"></div>
+                    <div class="col-lg-3 sm-12" >
+                        <div class="container" style="width:400px; font-size:1.5rem;">
+                        <h2>UnChecked Lists</h2>
+                        {% for firm in loot :%}
+                        {% if firm.done_li == 1: %}
+                        <p><a href="{{url_for('fish_li', id=firm.id) }}">✔</a>{{ firm.lists }}</p>
+                        {% endif %}
+                        {% endfor %}
+                            </div>
+                    </div>
+
+                    <div class="col-lg-3 sm-12">
+                        <div class="container" style="width:400px;font-size:1.5rem;">
+                        <h2>Checked Lists</h2>
+                        {% for firm in loot :%}
+                        {% if firm.done_li == 0: %}
+                        <p><a href="{{url_for('delete_li', id=firm.id) }}">❌</a>{{ firm.lists }}<a href="{{url_for('re_li', id=firm.id) }}">➕</a></p>
+                        {% endif %}
+                        {% endfor %}
+                            </div>
+                    </div>
+    </div>
+  </div>
+ </div>
+<div style="background-color:#e4d3cf;">
+<div class="container" style="width:250px;padding-top:3%;background-color:#e4d3cf;">
+    {{ wtf.quick_form(forms,novalidate=True, button_map={"submit": "primary"}) }}
+</div>
+    </div>
+
+{% endblock %}

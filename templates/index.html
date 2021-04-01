@@ -1,0 +1,47 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+<div style="height:50px;background-color:#ebebeb;font-family: 'Staatliches', cursive;"><p style="font-size:4rem;padding-left:20px;">ToDo List</p></div>
+<div style="background-color:#e4d3cf;">
+<div class="container-fluid" style="padding-top:20px;padding-bottom:20px;padding-left:10%;padding-right:10%;">
+    <div class="row" >
+        <div class="col-lg-5 sm-12" style="width:300px;height:400px;border:7px solid #5f939a;border-radius:10px;padding-top:20px;background-color:#9ddfd3;">
+            <div>{{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}</div>
+            </div>
+        <div class="col-lg-5 sm-12"style="text-align:left;padding-top:60px;padding-left:40px">
+            <h3>✔ - To check a Todo list</h3>
+            <h3>Checked List - the lists we finished</h3>
+            <h3>UnChecked List - the lists we yet to finish</h3>
+            <h3>❌ - To delete the list</h3>
+        </div>
+        <div class="col-lg-2 sm-12" style="position:relative;top:280px;padding-left:140px;z-index:1">
+
+        </div>
+    </div>
+    </div>
+    </div>
+<div style="position:relative;z-index:2;background-color:#ebebeb;">
+<div class = "container" style="text-align:center;">
+<div class="row" >
+
+    <div class="col-lg-6" style="background-color:#ff9292;">
+        <h1>UnChecked List</h1>
+        {% for rim in all: %}
+{% if rim['done'] == 1 %}
+ <h2><a href="{{url_for('fish', id=rim.id) }}">✔</a><a href="{{ url_for('list', id = rim['id']) }}">{{rim['title']}}</a></h2>
+    {% endif %}
+    {% endfor %}
+    </div>
+
+    <div class="col-lg-6" style="background-color:#ff9292;">
+        <h1>Checked List</h1>
+        {% for rim in all: %}
+    {% if rim['done'] == 0 %}
+        <h2><a href="{{url_for('delete', id=rim.id) }}">❌</a><a href="{{ url_for('list', id = rim['id']) }}">{{rim['title']}}</a></h2>
+    {% endif %}
+ {% endfor %}
+        </div>
+    </div>
+</div>
+</div>
+{% endblock%}
