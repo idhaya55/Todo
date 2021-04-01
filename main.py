@@ -88,7 +88,7 @@ def list(id):
         db.session.add(tyo)
         db.session.commit()
         list = Lists.query.filter_by(title_id=id).all()
-        return redirect(url_for('list'), id=id)
+        return redirect(url_for('list', id=id))
     return render_template('zoom.html', rim=qw, forms=asp, loot=list)
 
 @app.route("/edit_li/<int:id>", methods=['POST', 'GET'])
